@@ -13,7 +13,7 @@ export class JWTInterceptor implements HttpInterceptor {
             const { token } = this.authService.authInfo;
             request = request.clone({
                 setHeaders: {
-                    Authrorization: `Bearer ${token}`
+                    Authorization: `Bearer ${token}`
                 }
             });
         }

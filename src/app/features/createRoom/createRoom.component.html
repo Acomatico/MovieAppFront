@@ -1,0 +1,33 @@
+<form [formGroup]="createRoomForm">
+    <div>
+        <label for="code">Room Code</label>
+        <input type="text" name="code" formControlName="code" />
+    </div>
+    <div formArrayName="movies">
+        <div *ngFor="let movie of movies.controls; let i=index">
+            <div [formGroupName]="i">
+                <div>
+                    <label>Title</label>
+                    <input type="text" formControlName="title" />
+                </div>
+                <div>
+                    <label>Genre</label>
+                    <input type="text" formControlName="genre" />
+                </div>
+                <div>
+                    <label>Year</label>
+                    <input type="text" formControlName="year" />
+                </div>
+                <div>
+                    <button (click)="removeMovie(i)">Remove</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <button (click)="addMovie()">Add movie</button>
+    </div>
+    <div>
+        <button type="submit" (click)="submit()">Submit</button>
+    </div>
+</form>
