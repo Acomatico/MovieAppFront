@@ -13,11 +13,9 @@ export class JoinRoomComponent implements OnInit {
     code: any;
     webSocket: any;
     currentMovie: any;
-    voteForm = this.fb.group({
-        approved: [false]
-    });
+    isLastMovie: boolean = false;
 
-    constructor(private route: ActivatedRoute, private fb: FormBuilder) {}
+    constructor(private route: ActivatedRoute) {}
 
     ngOnInit() {
         this.code = this.route.snapshot.paramMap.get('roomCode');
@@ -34,34 +32,33 @@ export class JoinRoomComponent implements OnInit {
         }
 
         this.webSocket.onmessage = (event: any) => {
+            console.log(event.data);
             const response = JSON.parse(event.data);
             this.currentMovie = response.movie;
-            console.log(this.currentMovie);
 
             if (response.isLast) {
-                const nextButton = window.document.getElementById('nextMovieButton');
-                const finishButton = window.document.getElementById('finishButton');
-                if (finishButton && nextButton) {
-                    finishButton.hidden = false;
-                    nextButton.hidden = true;
-                }
+                this.isLastMovie = true
             }
         }
 
     }
 
-    nextMovie() {
+    nextMovie(isApproved: boolean) {
+        console.log(isApproved);
+        console.log(this.isLastMovie);
+        const jwt = JSON.parse(localStorage.getItem('auth') ?? '').token;
+
         const dataToSend = JSON.stringify({
+            authorization: jwt,
             command: "nextMovie",
-            approved: this.voteForm.value.approved
+            approved: isApproved
         });
         
         this.webSocket.send(dataToSend);
-    }
 
-    closeConnection() {
-        this.nextMovie();
-        this.webSocket.close();
+        if (this.isLastMovie) {
+            this.webSocket.close();
+        }
     }
 
 }

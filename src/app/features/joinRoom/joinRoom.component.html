@@ -1,12 +1,6 @@
 <div>
     <div *ngIf="currentMovie">{{currentMovie.title}}</div>
-    <form [formGroup]="voteForm">
-        <div>
-            <label>Approved</label>
-            <input type="checkbox" formControlName="approved" />
-        </div>
-    </form>
-    <button id="nextMovieButton" (click)="nextMovie()">Next movie</button>
-    <button id="finishButton"  hidden="true" (click)="closeConnection()">Finish</button>
+    <button class="nextMovieButton" (click)="nextMovie(true)">Approved</button>
+    <button class="nextMovieButton" (click)="nextMovie(false)">Disapproved</button>
 
 </div>

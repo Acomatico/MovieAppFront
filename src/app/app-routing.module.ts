@@ -8,6 +8,8 @@ import { LoginComponent } from './features/login/login.component';
 import { LoginModule } from './features/login/login.module';
 import { RegisterComponent } from './features/register/register.component';
 import { RegisterModule } from './features/register/register.module';
+import { ViewRoomComponent } from './features/viewRoom/viewRoom.component';
+import { ViewRoomModule } from './features/viewRoom/viewRoom.module';
 
 const routes: Routes = [
   {
@@ -25,6 +27,10 @@ const routes: Routes = [
   {
     path: 'join-room/:roomCode',
     component: JoinRoomComponent
+  }, 
+  {
+    path: 'results/:roomCode',
+    component: ViewRoomComponent
   }
 ];
 
