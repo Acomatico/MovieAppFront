@@ -1,0 +1,16 @@
+.form-container{
+    margin: 5% 15%;
+    padding: 10px 5%;
+    font-size: 30px;
+}
+.movie-group{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    
+}
+.movie-group label{
+    margin: 5px;
+    font-size: 20px;
+}

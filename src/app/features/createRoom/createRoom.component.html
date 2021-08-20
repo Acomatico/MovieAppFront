@@ -1,33 +1,21 @@
-<form [formGroup]="createRoomForm">
-    <div>
-        <label for="code">Room Code</label>
-        <input type="text" name="code" formControlName="code" />
-    </div>
-    <div formArrayName="movies">
-        <div *ngFor="let movie of movies.controls; let i=index">
-            <div [formGroupName]="i">
-                <div>
-                    <label>Title</label>
-                    <input type="text" formControlName="title" />
-                </div>
-                <div>
-                    <label>Genre</label>
-                    <input type="text" formControlName="genre" />
-                </div>
-                <div>
-                    <label>Year</label>
-                    <input type="text" formControlName="year" />
-                </div>
-                <div>
-                    <button (click)="removeMovie(i)">Remove</button>
+<div class="form-container">
+    <form [formGroup]="createRoomForm">
+        <div class="form-group">
+            <label class="form-label" for="code">Room Code</label>
+            <input class="form-control" type="text" name="code" formControlName="code" />
+        </div>
+        <div class="form-group" formArrayName="movies">
+            <div *ngFor="let movie of movies.controls; let i=index">
+                <div [formGroupName]="i" class="movie-group">
+                    <label class="form-label">Title</label>
+                    <input class="form-control" type="text" formControlName="title" />
+                    <button class="btn btn-primary" (click)="removeMovie(i)">Remove</button>
                 </div>
             </div>
         </div>
-    </div>
-    <div>
-        <button (click)="addMovie()">Add movie</button>
-    </div>
-    <div>
-        <button type="submit" (click)="submit()">Submit</button>
-    </div>
-</form>
+        <div>
+            <button class="btn btn-primary" (click)="addMovie()">Add movie</button>
+            <button class="btn btn-primary" type="submit" (click)="submit()">Submit</button>
+        </div>
+    </form>    
+</div>

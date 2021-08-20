@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
 import { CreateRoomService } from "src/app/core/services/createRoom.service";
 
 @Component({
@@ -36,9 +37,10 @@ export class CreateRoomComponent {
 
     submit() {
         this.createRoomService.createRoom(this.createRoomForm.value).subscribe(() => {
-            console.log('all good?')
+            const code = this.createRoomForm.value.code;
+            this.router.navigate([`/join-room/${code}`]);
         })
     }
 
-    constructor(private fb: FormBuilder, private createRoomService: CreateRoomService) {}
+    constructor(private fb: FormBuilder, private createRoomService: CreateRoomService, private router: Router) {}
 }

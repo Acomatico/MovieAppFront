@@ -1,0 +1,27 @@
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">Movie Decider</a>
+      <ul class="navbar-nav" *ngIf="loggedIn" >
+          <li class="nav-item">
+            <a class="btn btn-outline-success" aria-current="page" href="/create-room">Create Room</a>
+          </li>
+      </ul>
+      <form class="d-flex" [formGroup]="joinRoomForm" (ngSubmit)="joinRoom()" *ngIf="loggedIn">
+        <input class="form-control me-2" type="search" formControlName="roomCode" placeholder="Room Code" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Join</button>
+      </form>
+      <ul class="navbar-nav" id="auth-form" *ngIf="!loggedIn">
+        <li class="nav-item">
+          <a class="btn btn-outline-success" aria-current="page" href="/login">Login</a>
+        </li>
+        <li class="nav-item">
+            <a class="btn btn-outline-success" aria-current="page" href="/register">Register</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav" *ngIf="loggedIn">
+          <li class="nav-item">
+            <a class="btn btn-outline-success" aria-current="page" (click)="logout()">Logout</a>
+          </li>
+      </ul>
+      </div>
+</nav>

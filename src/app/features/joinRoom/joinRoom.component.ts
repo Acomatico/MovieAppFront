@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder } from "@angular/forms";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { JoinRoomService } from "src/app/core/services/joinRoom.service";
 
 @Component({
@@ -15,11 +15,12 @@ export class JoinRoomComponent implements OnInit {
     currentMovie: any;
     isLastMovie: boolean = false;
 
-    constructor(private route: ActivatedRoute) {}
+    constructor(private route: ActivatedRoute, private router: Router) {}
 
     ngOnInit() {
         this.code = this.route.snapshot.paramMap.get('roomCode');
         this.joinRoom(this.code);
+        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     }
 
     joinRoom(roomCode: any) {
@@ -34,6 +35,11 @@ export class JoinRoomComponent implements OnInit {
         this.webSocket.onmessage = (event: any) => {
             console.log(event.data);
             const response = JSON.parse(event.data);
+
+            if (response.error) {
+                console.log(response.error);
+            }
+
             this.currentMovie = response.movie;
 
             if (response.isLast) {

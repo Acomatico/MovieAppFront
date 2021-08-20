@@ -1,0 +1,9 @@
+#auth-form{
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+}
+
+#auth-form > li {
+    margin: auto 5px;
+} 

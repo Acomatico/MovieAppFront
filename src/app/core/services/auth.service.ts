@@ -32,6 +32,11 @@ export class AuthService {
         return this.http.post(`${url}/api/users/register`, {email, password, repeatedPassword})
     }
 
+    logout() {
+        localStorage.removeItem('auth');
+        this.authInfo = undefined;
+    }
+
     private _decodeToken(token: any) {
         const accessToken = token.accessToken;
         const codedInfo = accessToken.split('.')[1];

@@ -1,0 +1,16 @@
+.container{
+    margin: 5% 15%;
+    padding: 10px 5%;
+}
+h2{
+    font-size: 6ch;
+}
+.steps{
+}
+.steps p {
+    font-size: 3ch;
+    margin: 20px auto;
+}
+span{
+    font-weight: bold;
+}
