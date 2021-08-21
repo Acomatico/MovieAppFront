@@ -14,6 +14,8 @@ export class JoinRoomComponent implements OnInit {
     webSocket: any;
     currentMovie: any;
     isLastMovie: boolean = false;
+    error: any = null;
+    showResults: any = false;
 
     constructor(private route: ActivatedRoute, private router: Router) {}
 
@@ -33,11 +35,14 @@ export class JoinRoomComponent implements OnInit {
         }
 
         this.webSocket.onmessage = (event: any) => {
-            console.log(event.data);
             const response = JSON.parse(event.data);
 
             if (response.error) {
-                console.log(response.error);
+                this.error = response.error;
+                if (response.error === 'User has already voted') {
+                    this.showResults = true;
+                }
+                return;
             }
 
             this.currentMovie = response.movie;
@@ -50,8 +55,6 @@ export class JoinRoomComponent implements OnInit {
     }
 
     nextMovie(isApproved: boolean) {
-        console.log(isApproved);
-        console.log(this.isLastMovie);
         const jwt = JSON.parse(localStorage.getItem('auth') ?? '').token;
 
         const dataToSend = JSON.stringify({
@@ -64,7 +67,12 @@ export class JoinRoomComponent implements OnInit {
 
         if (this.isLastMovie) {
             this.webSocket.close();
+            this.seeResults();
         }
+    }
+    
+    seeResults() {
+        this.router.navigate([`/results/${this.code}`])
     }
 
 }

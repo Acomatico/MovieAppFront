@@ -2,10 +2,14 @@
     <div class="card">
         <div class="card-body">
           <div class="card-title" *ngIf="currentMovie">{{currentMovie.title}}</div>
-          <div>
+          <div *ngIf="null === error">
             <button class="nextMovieButton btn btn-primary" (click)="nextMovie(true)">Approved</button>
             <button class="nextMovieButton btn btn-primary" (click)="nextMovie(false)">Disapproved</button>
           </div>
         </div>
+      </div>
+      <div class="alert alert-danger" *ngIf="null !== error">
+        {{error}}
+        <span *ngIf="showResults === true">. Click <a class="btn btn-link" (click)="seeResults()">here</a> to see the results</span>
       </div>
 </div>
